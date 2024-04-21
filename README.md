@@ -13,4 +13,4 @@ In this project, I created an app that uses channels to expand django server to 
   .django
   .channels
   .psycopg
-  .psycopg2-binary
+  .psycopg-binary
