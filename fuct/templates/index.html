@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+	<style>
+		* {
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
+		}
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100svh;
+			flex-flow: column;
+			gap:50px;
+		}
+		.content {
+			width: 70%;
+			position: relative;
+			height: 50svh;
+			background: rgba(255, 0, 0, 0.113);
+			background-color: #df833d;
+			border-radius: 20px;
+			overflow: scroll;
+			overflow-x: hidden;
+		}
+		button {
+			padding: 20px;
+			cursor: pointer;
+		}
+		.lmessage {
+			background: rgb(255, 255, 255, 0.6);
+			width: 200px;
+			height: 50px;
+			left: 30px;
+			/* border-radius: 40px; */
+			margin-bottom: 20px;
+			position: relative;
+			top: 40px;
+			font-family: Arial, Helvetica, sans-serif;
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			flex-wrap: wrap;
+			overflow: hidden;
+		}
+		.lmessage_ {
+			content: '';
+			color: rgb(0, 0, 0, 0.4);
+			width:70px;
+			height:15px;
+			position:absolute;
+			bottom: 5px;
+			font-size: 10px;
+			left: 0px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.rmessage {
+			font-family: Arial, Helvetica, sans-serif;
+			background: rgb(255, 255, 255, 0.6);
+			width: 200px;
+			height: 50px;
+			position: relative;
+			left: 83%;
+			margin-bottom: 20px;
+			top: 20px;
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			max-width: 190px;
+			display: flex;
+			flex-wrap: wrap;
+			overflow: hidden;
+		}
+		.rmessage_ {
+			content: '';
+			color: rgb(0, 0, 0, 0.4);
+			width:70px;
+			height:15px;
+			position:absolute;
+			bottom: 5px;
+			font-size: 10px;
+			right: 0px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.inp {
+			border: none;
+			outline: none;
+		}
+		.red {
+			background: rgb(190, 0, 0, 0.4);
+			transition: .3s;
+		}
+		.inp::placeholder {
+			text-transform: capitalize;
+		}
+	</style>
+<body>
+	<div class="container">
+		<div class="content"></div>
+		<div>
+			<input class="inp" style="padding: 20px 80px 20px 10px;" placeholder="message">
+			<button class="btn-r">send</button>
+		</div>
+	</div>
+	<script>
+		const message = document.querySelector('.content')
+		const input = document.querySelector('.inp')
+		const btn = document.querySelector('.btn-r')
+		var TheName = 0
+		let index = 0
+		
+		const obj = new WebSocket('ws://e2r7p13:8000/chat-app/')
+
+		function GetTheName() {
+			const query = location.search
+			var name = query.split('?')[1]
+			if (name.startsWith('name='))
+				name = name.replace('name=', '')
+			return name
+		}
+
+		window.addEventListener('load', ()=> {
+			TheName = GetTheName()
+		})
+
+		function TheFunction() {
+			var value = input.value
+			if (value === "") {
+				input.classList.add('red')
+				setTimeout(()=> input.classList.remove('red'), 400)
+				return
+			}
+			input.value = ""
+			obj.send(JSON.stringify({
+				'type': 'message',
+				'name': TheName,
+				'message': value
+			}))
+		}
+
+		btn.addEventListener('click', TheFunction)
+		window.addEventListener('keyup', function(e) {
+			if (e.key === "Enter")
+				TheFunction()
+		})
+
+		obj.onmessage = function(e) {
+			const data = JSON.parse(e.data)
+			const type = data.type
+
+			const date = new Date();
+			if (type === 'connection')
+				index = data.message
+			if (type === 'message') {
+				const element = document.createElement('div')
+				message.appendChild(element)
+				element.innerHTML = data.message.message
+				console.log(index, ' ',data.message.user)
+				message.scrollTop = message.scrollHeight;
+				if (index === data.message.user) {
+					element.classList.add('rmessage')
+					const sta = document.createElement('div')
+					element.appendChild(sta)
+					sta.innerHTML = data.message.name + ' ' + date.getHours().toString() + ':'
+					sta.innerHTML += date.getMinutes().toString()
+					sta.classList.add('rmessage_')
+				}
+				else {
+					element.classList.add('lmessage')
+					const sta = document.createElement('div')
+					element.appendChild(sta)
+					sta.innerHTML = data.message.name + ' ' + date.getHours().toString() + ':'
+					sta.innerHTML += date.getMinutes().toString()
+					sta.classList.add('lmessage_')
+				}
+			}
+			if (type === 'redirect') {
+				window.location.href = data.redirect;
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+	<style>
+		* {
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
+			font-family: Arial;
+		}
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100svh;
+			flex-flow: column;
+			gap:50px;
+			background-color: black;
+		}
+		.error_message {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-flow: column;
+		}
+		p {
+			color: red;
+			font-weight: bold;
+			font-size: 30px;
+			color: red;
+		}
+		h1 {
+			font-size: 45px;
+			margin-top: 30px;
+			color: white;
+		}
+	</style>
+<body>
+	<div class="container">
+		<div class="error_message">
+			<p id='status'>401</p>
+			<p>unauthorized</p>
+			<h1>ROOM IS FULL</h1>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<style>
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+	.container {
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		height: 100svh;
+		gap:50px;
+	}
+	input {
+		width: 30%;
+		padding: 20px 0 20px 30px;
+		border: 1px solid;
+		border-radius: 15px;
+	}
+	input:hover, input:focus {
+		outline: none;
+	}
+	button {
+		border-radius: 15px;
+		padding: 20px;
+		border: none;
+		transition: .2s;
+		cursor: pointer;
+	}
+	button:hover {
+		transform:scale(1.1);
+	}
+</style>
+<body>
+	<div class="container">
+		<input class='inp' name="login" placeholder="Your Name">
+		<button class='btn-r'>Submit</button>
+	</div>
+	<script>
+		const input = document.querySelector('.inp')
+		const btn = document.querySelector('.btn-r')
+
+		btn.addEventListener('click', ()=> {
+			const value = input.value
+			window.location.href = 'http://e2r7p13:8000/chat/' + '?name=' + value
+		})
+	</script>
+</body>
+</html>
