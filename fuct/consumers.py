@@ -57,5 +57,9 @@ class ChatApp(WebsocketConsumer):
 			'message': message
 		}))
 
-	# def disconnect(self):
-	# 	pass
+	def disconnect(self, close_code):
+		del ChatApp.connections[self]
+		async_to_sync(self.channel_layer.group_discard) (
+			self.room_group_name,
+			self.channel_name
+		)

@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
 	path('chat/', views.renderWebPage),
-	path('login/', views.login),
+	path('', views.login),
 	path('errorPage/', views.Error)
 ]
