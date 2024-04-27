@@ -1,0 +1,46 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+:root {
+	--backGround: #222831;
+	--Yellow: #FFD369;
+	--Gray: #393E46;
+	--White: #EEEEEE;
+}
+.sidebar {
+	position: absolute;
+	left: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	z-index: 15;
+	height: 100svh;
+	gap: 35px;
+}
+.sidebar div {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 50px;
+	width: 400px;
+	background-color: var(--Gray);
+	border-radius: 50px;
+	padding: 20px 40px;
+	cursor: pointer;
+	transition: .2s;
+}
+img {
+	width: 31.4px;
+}
+.sidebar div:nth-child(2) {
+	background-color: var(--Yellow);
+}
+div h1 {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 32px;
+}

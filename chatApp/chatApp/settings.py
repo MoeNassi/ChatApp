@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_*k2_#iez7apzgwf6@-+dmubmbj3#2s6#ov+tzoa%-9g57oq)q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'e2r7p13', '*']
+ALLOWED_HOSTS = ['*']
 
 ASGI_APPLICATION = 'chatApp.asgi.application'
 
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 	'fuct',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
 CHANNEL_LAYERS = {
 	'default': {
 		'BACKEND': 'channels.layers.InMemoryChannelLayer'
@@ -56,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'corsheaders.middleware.CorsMiddleware', #this solves the cors problem
 ]
 
 ROOT_URLCONF = 'chatApp.urls'

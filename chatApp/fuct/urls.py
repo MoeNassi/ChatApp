@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-	path('chat/', views.renderWebPage),
-	path('', views.login),
+	path('add-user/', views.AddUser),
 	path('errorPage/', views.Error)
 ]

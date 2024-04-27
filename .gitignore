@@ -1,0 +1,10 @@
+.venv
+./*/.venv/
+./*/.env/
+./*/.DS_Store/
+./*/node_modules/
+./*/*/.venv/
+./*/*/.env/
+./*/*/.DS_Store/
+.DS_Store
+db.sqlite3
